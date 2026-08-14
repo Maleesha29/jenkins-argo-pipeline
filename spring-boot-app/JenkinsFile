@@ -41,54 +41,29 @@ pipeline {
         }
       }
     }
-    
     stage ('Update Deployment File') {
-    environment {
-        GIT_REPO_NAME = "jenkins-argo-pipeline"
-        GIT_USER_NAME = "Maleesha29"
-    }
-    steps {
-        withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-            bat '''
-                echo ========================================
-                echo Updating Kubernetes Deployment
-                echo Build Number: %BUILD_NUMBER%
-                echo ========================================
+      steps {
+          bat '''
+              echo ===== DEBUG =====
+              echo Repository should be:
+              echo https://github.com/Maleesha29/jenkins-argo-pipeline.git
+              echo ==================
+          '''
 
-                git config user.email "lishan.m29@gmail.com"
-                git config user.name "Maleesha29"
+          withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+              bat '''
+                  git config user.email "lishan.m29@gmail.com"
+                  git config user.name "Maleesha29"
 
-                echo.
-                echo Checking deployment file...
-                dir spring-boot-app-manifests
+                  git add spring-boot-app-manifests/deployment.yaml
 
-                echo.
-                echo Current deployment:
-                type spring-boot-app-manifests\\deployment.yaml
+                  git commit -m "Update deployment image to version %BUILD_NUMBER%"
 
-                echo.
-                echo Updating Docker image tag...
-
-                powershell -Command "(Get-Content 'spring-boot-app-manifests\\deployment.yaml') -replace 'maleesha1129/jenkins-argo-pipeline:[^\\s]+', 'maleesha1129/jenkins-argo-pipeline:%BUILD_NUMBER%' | Set-Content 'spring-boot-app-manifests\\deployment.yaml'"
-
-                echo.
-                echo Updated deployment:
-                type spring-boot-app-manifests\\deployment.yaml
-
-                echo.
-                echo Adding deployment file to Git...
-                git add spring-boot-app-manifests/deployment.yaml
-
-                echo.
-                echo Committing changes...
-                git commit -m "Update deployment image to version %BUILD_NUMBER%"
-
-                echo.
-                echo Pushing changes to GitHub...
-                git push https://%GITHUB_TOKEN%@github.com/%GIT_USER_NAME%/%GIT_REPO_NAME%.git HEAD:main
-            '''
+                  git push https://%GITHUB_TOKEN%@github.com/Maleesha29/jenkins-argo-pipeline.git HEAD:main
+              '''
           }
-        }
+      }
     }
+    
   }
 }
