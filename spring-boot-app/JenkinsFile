@@ -2,7 +2,7 @@ pipeline {
   agent {
     //run pipeline inside a docker container
     docker {
-      image 'maleesha1129/jenkins-argo-pipeline:v1'
+      image 'abhishekf5/maven-abhishek-docker-agent:v1'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' //mounts the host's Docker socket inside the Jenkins agent container
     }
   }
