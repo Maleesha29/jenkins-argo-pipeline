@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-boot-app
-          image: maleesha1129/jenkins-argo-pipeline:replaceImageTag
+          image: maleesha1129/jenkins-argo-pipeline:20
           ports:
             - containerPort: 8080
