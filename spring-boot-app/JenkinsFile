@@ -53,10 +53,11 @@ pipeline {
           bat '''
                     git config user.email "lishan.m29@gmail.com"
                     git config user.name "Maleesha29"
+                    echo Updating deployment image tag to %BUILD_NUMBER%...
                     powershell -Command "(Get-Content 'spring-boot-app-manifests\\deployment.yml') -replace 'replaceImageTag', '%BUILD_NUMBER%' | Set-Content 'spring-boot-app-manifests\\deployment.yml'"
                     git add spring-boot-app-manifests/deployment.yml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://%GITHUB_TOKEN%@github.com/%GIT_USER_NAME%}/%GIT_REPO_NAME%.git HEAD:main
+                    git commit -m "Update deployment image to version %BUILD_NUMBER%"
+                    git push https://%GITHUB_TOKEN%@github.com/%GIT_USER_NAME%/%GIT_REPO_NAME%.git HEAD:main
                 '''
         }
       }
