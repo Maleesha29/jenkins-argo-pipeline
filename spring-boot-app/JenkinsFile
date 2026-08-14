@@ -56,7 +56,7 @@ pipeline {
 
                 echo Updating deployment image tag to %BUILD_NUMBER%...
 
-                powershell -Command "(Get-Content 'spring-boot-app-manifests\\deployment.yml') -replace 'replaceImageTag', '%BUILD_NUMBER%' | Set-Content 'spring-boot-app-manifests\\deployment.yml'"
+                powershell -Command "(Get-Content 'spring-boot-app-manifests\\deployment.yaml') -replace 'replaceImageTag', '%BUILD_NUMBER%' | Set-Content 'spring-boot-app-manifests\\deployment.yaml'"
 
                 git add spring-boot-app-manifests/deployment.yml
 
