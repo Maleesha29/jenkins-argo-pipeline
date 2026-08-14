@@ -47,17 +47,16 @@ pipeline {
           GIT_REPO_NAME = "jenkins-argo-pipeline"
           GIT_USER_NAME = "Maleesha29"
       }
-
       steps {
           withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
               bat '''
                   git config user.email "lishan.m29@gmail.com"
                   git config user.name "Maleesha29"
 
+                  powershell -Command "(Get-Content spring-boot-app-manifests/deployment.yaml) -replace 'maleesha1129/jenkins-argo-pipeline:.*', 'maleesha1129/jenkins-argo-pipeline:%BUILD_NUMBER%' | Set-Content spring-boot-app-manifests/deployment.yaml"
+
                   git add spring-boot-app-manifests/deployment.yaml
-
                   git commit -m "Update deployment image to version %BUILD_NUMBER%"
-
                   git push https://%GITHUB_TOKEN%@github.com/%GIT_USER_NAME%/%GIT_REPO_NAME%.git HEAD:main
               '''
           }
