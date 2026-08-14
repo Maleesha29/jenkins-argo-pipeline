@@ -3,11 +3,11 @@ kind: Service
 metadata: 
   name: spring-boot-app
 spec: 
-  type: nodePort
+  type: NodePort
   ports: 
     - name: http
       port: 80
       targetPort: 8080
       protocol: TCP
-    selector:
-      app: spring-boot-app
+  selectot:
+    app: spring-boot-app
