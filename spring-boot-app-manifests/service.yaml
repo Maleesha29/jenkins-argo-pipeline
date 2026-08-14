@@ -9,5 +9,5 @@ spec:
       port: 80
       targetPort: 8080
       protocol: TCP
-  selectot:
+  selector:
     app: spring-boot-app
