@@ -1,2 +1,29 @@
+# Compiled Maven build output
+target/
+**/target/
+*.class
+
+# Packaged artifacts (except when explicitly needed)
+*.jar.original
+
+# Dependencies and local scripts
+node_modules/
 config.bat
-node_modules
+
+# Logs and temporary files
+*.log
+*.tmp
+.tmp/
+
+# IDE and Editor files
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
